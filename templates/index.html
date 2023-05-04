@@ -1,0 +1,218 @@
+<!---loading the static file into the template-->
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Donxcel Professional portfolio creation
+
+-->
+<html>
+	<head>
+		<script>
+			var texts = ["machine learning engineer!", "data analyst in python", " currently working in django backend web development"];
+			var textIndex = 0;
+			var charIndex = 0;
+			var speed = 500; // Time between each loop (in milliseconds)
+			var timer;
+	
+			function writeText() {
+				 var target = document.getElementById("text");
+  target.innerHTML += texts[textIndex].charAt(charIndex);
+
+  charIndex++;
+
+  if (charIndex >= texts[textIndex].length) {
+    clearInterval(timer);
+    setTimeout(cancelWriting, speed);
+				}
+			}
+	
+			function cancelWriting() {
+				timer = setInterval(deleteText, 50);
+			}
+	
+			function deleteText() {
+				var currentText = document.getElementById("text").innerHTML;
+				if (currentText.length > 0) {
+					document.getElementById("text").innerHTML = currentText.slice(0, -1);
+				} else {
+					clearInterval(timer);
+					textIndex++;
+					if (textIndex >= texts.length) {
+						textIndex = 0;
+					}
+					setTimeout(startWriting, speed);
+				}
+			}
+	
+			function startWriting() {
+				charIndex = 0;
+				timer = setInterval(writeText, 100);
+			}
+	
+			window.onload = function() {
+				startWriting();
+			};
+		</script>
+		<title>DONXCEL PORTFOLIO</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" type = "text/css" href="{% static 'css/main.css' %}" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="https://drive.google.com/file/d/1QoOC1aF_D46o8Av3KQZDSNB7JUmy7ENE/view?usp=share_link" class="image avatar"><img src="{% static 'images/main_second.jpg' %}" alt="" /></a>
+					<!---creating the link to rthe-->
+
+					<h3>
+					<div id = "texts">
+						click the link or Bio to view my <a href="https://drive.google.com/file/d/1QoOC1aF_D46o8Av3KQZDSNB7JUmy7ENE/view?usp=share_link">	CV</a>.
+					</div></h3>
+					<h1><strong>I am LEGIMA DONAL </strong></h1>
+		
+	
+<strong>
+	 <h4 id="text" style="height:min-content;color: blanchedalmond;"></h4>
+				</strong>
+			</h1>	
+			</header>
+
+		<!-- Main -->
+e
+			<div id="main">
+
+				<!-- One -->
+					<section id="one">
+						<header class="major">
+							<h2><strong>About me</strong><br />
+								</h2>
+						</header>
+						<p>I am an undergraduate from the University of Buea aiming for a bachelors degree in computer engineering.</p>
+						<p>I have been playing with computers since the age of 5 and have always been a passionate about technologies and softwares. I am devoted and committed to what I do and have worked on many projects both individually and working with a team.	I am always ready to learn from my mistakes and grow from them and listen to others opinion </p>
+						<p>I am fluent in both English and French and an enthusiasts for python programming language  </p>
+						<ul class="actions">						</ul>
+					</section>
+
+				<!-- Two -->
+					<div class="portfolio">
+						<h2>Project Work</h2>
+					
+							<div class="project-grid">
+								<a href="https://github.com/Donxcel/Python-practice/tree/main/Building_a_snake_Game_with_Turtle" class="project"><img src="{% static 'images/thumbs/snake.jpeg' %}" alt="" />
+									<h3>Snake game using Turtle</h3>
+								</a>
+								
+								<a href="#" class="project"><img src="{% static 'images/thumbs/bot.jpeg' %}" alt="" />
+								<h3>Instagram Bot using selenium</h3>
+							    </a>
+								
+								<a href="https://github.com/Donxcel/data-science-and-machine-learning" class="project"><img src="{% static 'images/thumbs/AI.jpeg' %}" alt="" />
+								<h3>Machine Learning using sckit-learn</h3>
+							    </a>
+							
+								<a href="https://github.com/Donxcel/Python-practice/tree/main/password-manager" class="project"><img src="{% static 'images/thumbs/password-manager.jpeg' %}" alt="" />
+								<h3>Simple GUI password Manager</h3>
+								</a>
+					
+								<a href="https://github.com/Donxcel/data-science-and-machine-learning" class="project"><img src="{% static 'images/thumbs/data_visual.jpeg' %}" alt="" />
+								<h3>Data analysis and visualisation</h3>
+								</a>
+
+								<a href="" class="project"><img src="{% static 'images/thumbs/portfolio.png' %}" alt="" />
+								<h3>Portfolio website</h3>
+							     </a>
+							
+							</div>
+					</div>
+
+				<!-- Three -->
+					<section id="three">
+						<h2>Get In Touch</h2>
+						<p>Thankyou for going through my review and I hope to have a positive feedback</p>
+						
+						<!--Creating the form of the class -->
+						<div class="row">
+							<div class="col-8 col-12-small">
+								<form method="post" action="{% url 'contact' %}">
+									{% csrf_token %}
+									<div class="row gtr-uniform gtr-50">
+										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" value="{{ request.POST.name }}"/>
+											{% if form.name.errors %}
+											<span class="text-danger">{{ form.name.errors|join:", " }}</span>
+										{% endif %}
+										</div>
+
+										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" value="{{ request.POST.email }}"/>
+											{% if form.email.errors %}
+											<span class="text-danger">{{ form.email.errors|join:", " }}</span>
+										{% endif %}
+										</div>
+
+										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4">{{ request.POST.message }}</textarea>
+
+											{% if form.message.errors %}
+											<span class="text-danger">{{ form.message.errors|join:", " }}</span>
+											{% endif %}
+
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send Message" /></li>
+									</ul>
+								</form>
+								
+							</div>
+							<div class="col-4 col-12-small">
+								<ul class="labeled-icons">
+									<li>
+										<h3 class="icon solid fa-home"><span class="label">Address</span></h3>
+										Buea Molyko.<br />
+										Southwest, Buea<br />
+										Cameroon
+									</li>
+									<li>
+										<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
+										+237-654-930-195
+									</li>
+									<li>
+										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
+										<a href="#">legimadonxcel123@gmail.com</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+
+
+			</div>
+
+		<!-- Footer -->
+			<strong>
+				link to my socials 
+			</strong>
+			<footer id="footer">
+				<div class="inner" style="height: 1000px;">
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/donal-legima-1831a11b2/" class="icon brands fa-linkedin-in"><span class="label">linkedin</span></a></li>
+						<li><a href="https://github.com/Donxcel" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="legimadnxcel123@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; donxcel</li><li></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js'%}"></script>
+			<script src="{% static 'js/jquery.poptrox.min.js' %}"></script>
+			<script src="{% static 'js/browser.min.js' %}"></script>
+			<script src="{% static 'js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+
+	</body>
+</html>

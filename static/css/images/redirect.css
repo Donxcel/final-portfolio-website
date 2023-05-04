@@ -1,0 +1,42 @@
+/* Apply a font family, font size, and line height to the <body> element */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333; /* Set a default text color */
+  }
+  
+  /* Style the <h1> element */
+  h1 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #000;
+  }
+  
+  /* Style the <p> element */
+  p {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the <a> and <button> elements */
+  a,
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* Add a hover effect to <a> and <button> elements */
+  a:hover,
+  button:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
