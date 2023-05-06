@@ -1,6 +1,6 @@
 # importing the main libraries from django needed for the view.py
 from django.shortcuts import render
-from django.core.mail import send_mail
+from django.core.mail import send_mail,EmailMessage
 from django.conf import settings
 from django.http import HttpResponse
 
@@ -18,20 +18,21 @@ def contact_view(request):
             form_data = {
                 'name':name,
                 'email': email,
-                'message': message
+                'message': message,
+                'sender_name': 'John Smith'
+
             }
-            message = message = '''
+            message = '''
             From:\n\t\t{}\n
             Email:\n\t\t{}\n
             Message:\n\t\t{}\n
-            '''.format(form_data['name'], form_data['email'], form_data['message'])
-            send_mail(
+            '''.format(form_data['sender_name'],form_data['name'], form_data['email'], form_data['message'])
+            EmailMessage(
                 subject,
-                 message,
-                 '',
-                [settings.DEFAULT_FROM_EMAIL],
-                fail_silently = False,
-            )
+                message,
+               f'{name} <{email}',
+                [f'{name} < {settings.DEFAULT_FROM_EMAIL}']
+            ).send()
         # rendering the results on a template
         
             return render(request,'myapp/success.html')
